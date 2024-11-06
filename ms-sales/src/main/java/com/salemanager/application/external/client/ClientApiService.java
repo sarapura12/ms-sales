@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ClientApiService {
     private final RestTemplate restTemplate;
-    private final String baseUrl = "http://localhost:8081/api";
+    private final String baseUrl = "http://localhost:8082/api";
 
     public ClientApiService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
