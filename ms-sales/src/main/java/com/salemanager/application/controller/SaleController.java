@@ -1,28 +1,25 @@
 package com.salemanager.application.controller;
 
-import com.salemanager.application.external.client.ClientApiService;
-import com.salemanager.application.external.product.ProductApiService;
-import com.salemanager.application.external.product.models.ProductDto;
+import com.salemanager.application.dto.PlaceOrderDto;
+import com.salemanager.application.model.entity.Sale;
+import com.salemanager.application.service.impl.SaleServiceImpl;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/sales")
 
 public class SaleController {
-    private final ClientApiService clientApiService;
-    private final ProductApiService productApiService;
+    private final SaleServiceImpl saleService;
 
-    public SaleController(ClientApiService clientApiService, ProductApiService productApiService) {
-        this.clientApiService = clientApiService;
-        this.productApiService = productApiService;
+
+    public SaleController(SaleServiceImpl saleService) {
+        this.saleService = saleService;
+
     }
 
-    @GetMapping("/{productId}")
-    public ResponseEntity<ProductDto> getSale(@PathVariable Long productId) {
-        return ResponseEntity.ok(productApiService.getProductById(productId));
+    @PostMapping
+    public ResponseEntity<Sale> getSale(@RequestBody PlaceOrderDto placeOrderDto) {
+        return ResponseEntity.ok(saleService.generateSale(placeOrderDto));
     }
 }

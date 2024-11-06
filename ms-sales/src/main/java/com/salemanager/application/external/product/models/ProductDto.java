@@ -13,4 +13,6 @@ public class ProductDto {
     private String code;
     private ProductStatus status;
     private Long supplierId;
+    private Double price;
+    private Integer stock;
 }
