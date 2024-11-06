@@ -1,4 +1,10 @@
 package com.salemanager.application.service.impl;
 
-public class ClientServiceImpl {
+import com.salemanager.application.service.interfaces.IClientService;
+
+public class ClientServiceImpl implements IClientService {
+    @Override
+    public void getClient() {
+
+    }
 }

@@ -1,4 +1,5 @@
 package com.salemanager.application.service.interfaces;
 
 public interface ISaleService {
+    void generateSale();
 }
