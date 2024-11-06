@@ -1,7 +1,6 @@
 package com.salemanager.application.service.impl;
 
 import com.salemanager.application.dto.PlaceOrderDto;
-import com.salemanager.application.exception.InvalidOperationException;
 import com.salemanager.application.exception.ResourceNotFoundException;
 import com.salemanager.application.external.client.ClientApiService;
 import com.salemanager.application.external.client.models.ClientDto;
@@ -85,9 +84,7 @@ class SaleServiceImplTest {
     void generateSale_ClientNotFound() {
         when(clientApiService.getClientById(anyLong())).thenReturn(null);
 
-        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
-            saleService.generateSale(placeOrderDto);
-        });
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> saleService.generateSale(placeOrderDto));
 
         assertEquals("Client", exception.getResourceName());
         assertEquals("id", exception.getFieldName());
@@ -100,9 +97,7 @@ class SaleServiceImplTest {
         when(clientApiService.getClientById(anyLong())).thenReturn(new ClientDto());
         when(productApiService.getProductById(anyLong())).thenReturn(null);
 
-        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
-            saleService.generateSale(placeOrderDto);
-        });
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> saleService.generateSale(placeOrderDto));
 
         assertEquals("Product", exception.getResourceName());
         assertEquals("id", exception.getFieldName());

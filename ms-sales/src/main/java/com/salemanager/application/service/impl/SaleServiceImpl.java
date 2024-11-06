@@ -1,11 +1,9 @@
 package com.salemanager.application.service.impl;
 
 import com.salemanager.application.dto.PlaceOrderDto;
-import com.salemanager.application.exception.InvalidOperationException;
 import com.salemanager.application.exception.ResourceNotFoundException;
 import com.salemanager.application.external.client.ClientApiService;
 import com.salemanager.application.external.product.ProductApiService;
-import com.salemanager.application.external.product.models.ProductStatus;
 import com.salemanager.application.model.entity.Sale;
 import com.salemanager.application.repository.SaleRepository;
 import com.salemanager.application.service.interfaces.ISaleService;
