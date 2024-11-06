@@ -37,18 +37,11 @@ public class SaleServiceImpl implements ISaleService {
             throw new ResourceNotFoundException("Product", "id", placeOrderDto.getProductId());
         }
 
-        if (product.getStatus() == ProductStatus.NOT_AVAILABLE) {
-            throw new InvalidOperationException("Product Status, ", product.getStatus(), "Product is inactive");
-
-        }
-
-        if (placeOrderDto.getQuantity() > product.getStock()) {
-            throw new InvalidOperationException("Product Stock, ", product.getStock(), "Not enough stock to complete the order");
-        }
+        var result = productApiService.requestDiscount(placeOrderDto.getProductId(), 1);
 
         var newSale = new Sale();
         newSale.setClientId(placeOrderDto.getClientId());
-        newSale.setProductId(placeOrderDto.getProductId());
+        newSale.setProductId(result.getId());
         newSale.setProductPrice(product.getPrice());
         newSale.setDateTime(LocalDateTime.now());
         newSale.setPaymentMethod(placeOrderDto.getPaymentMethod());
