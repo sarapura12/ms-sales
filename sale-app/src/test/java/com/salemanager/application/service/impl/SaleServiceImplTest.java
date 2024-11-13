@@ -2,9 +2,9 @@ package com.salemanager.application.service.impl;
 
 import com.salemanager.application.dto.PlaceOrderDto;
 import com.salemanager.application.exception.ResourceNotFoundException;
-import com.salemanager.application.external.client.ClientApiService;
+import com.salemanager.application.external.client.ICustomerFeignClient;
 import com.salemanager.application.external.client.models.ClientDto;
-import com.salemanager.application.external.product.ProductApiService;
+import com.salemanager.application.external.product.IProductFeignClient;
 import com.salemanager.application.external.product.models.ProductDto;
 import com.salemanager.application.external.product.models.ProductStatus;
 import com.salemanager.application.model.entity.Sale;
@@ -28,10 +28,10 @@ import static org.mockito.Mockito.*;
 class SaleServiceImplTest {
 
     @Mock
-    private ClientApiService clientApiService;
+    private ICustomerFeignClient customerFeignClient;
 
     @Mock
-    private ProductApiService productApiService;
+    private IProductFeignClient productFeignClient;
 
     @Mock
     private SaleRepository saleRepository;
@@ -48,7 +48,7 @@ class SaleServiceImplTest {
         placeOrderDto = new PlaceOrderDto();
         placeOrderDto.setClientId(1L);
         placeOrderDto.setProductId(1L);
-        placeOrderDto.setQuantity(2L);
+        placeOrderDto.setQuantity(2);
         placeOrderDto.setPaymentMethod(PaymentMethod.CREDIT_CARD);
 
         sale = new Sale();
@@ -67,9 +67,9 @@ class SaleServiceImplTest {
 
     @Test
     void generateSale_Success() {
-        when(clientApiService.getClientById(anyLong())).thenReturn(new ClientDto());
-        when(productApiService.getProductById(anyLong())).thenReturn(productDto);
-        when(productApiService.requestDiscount(anyLong(), anyInt())).thenReturn(productDto);
+        when(customerFeignClient.getClientById(anyLong())).thenReturn(new ClientDto());
+        when(productFeignClient.getProductById(anyLong())).thenReturn(productDto);
+        when(productFeignClient.requestDiscount(anyLong(), anyInt())).thenReturn(productDto);
         when(saleRepository.save(any(Sale.class))).thenReturn(sale);
 
         Sale createdSale = saleService.generateSale(placeOrderDto);
@@ -82,7 +82,7 @@ class SaleServiceImplTest {
 
     @Test
     void generateSale_ClientNotFound() {
-        when(clientApiService.getClientById(anyLong())).thenReturn(null);
+        when(customerFeignClient.getClientById(anyLong())).thenReturn(null);
 
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> saleService.generateSale(placeOrderDto));
 
@@ -94,8 +94,8 @@ class SaleServiceImplTest {
 
     @Test
     void generateSale_ProductNotFound() {
-        when(clientApiService.getClientById(anyLong())).thenReturn(new ClientDto());
-        when(productApiService.getProductById(anyLong())).thenReturn(null);
+        when(customerFeignClient.getClientById(anyLong())).thenReturn(new ClientDto());
+        when(productFeignClient.getProductById(anyLong())).thenReturn(null);
 
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> saleService.generateSale(placeOrderDto));
 

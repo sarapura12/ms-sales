@@ -9,6 +9,6 @@ import lombok.Setter;
 public class PlaceOrderDto {
     private Long clientId;
     private Long productId;
-    private Long quantity;
+    private Integer quantity = 1;
     private PaymentMethod paymentMethod;
 }
