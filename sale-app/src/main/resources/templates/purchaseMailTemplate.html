@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprobante - TuTienda!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header img {
+      max-width: 120px;
+    }
+    .header h1 {
+      font-size: 24px;
+      margin: 10px 0;
+      color: #af7ac5;
+    }
+    .message {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .message h2 {
+      font-size: 20px;
+      color: #000;
+    }
+    .message p {
+      font-size: 16px;
+    }
+    .cart {
+      margin: 20px 0;
+    }
+    .cart table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .cart th, .cart td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .cart th {
+      background-color: #af7ac5;
+      color: #333;
+    }
+    .cart img {
+      max-width: 50px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <img src="cid:logo" alt="TuTienda! Logo">
+    <h1>TuTienda!</h1>
+  </div>
+  <div class="message">
+    <h2>Hola [[${client.name}]],</h2>
+    <p>¡Gracias por su compra!</p>
+    <p>A continuación adjuntamos más detalles</p>
+  </div>
+  <div class="cart">
+    <h4>Fecha: [[${sale.dateTime}]]</h4>
+    <h4>Artículos:</h4>
+    <table>
+      <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Descripción</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <img src="https://via.placeholder.com/50">
+        </td>
+        <td><b>[[${product.name}]]</b><br>[[${product.description}]]</td>
+        <td>
+          <center>1</center>
+        </td>
+        <td>$[[${product.price}]]</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
