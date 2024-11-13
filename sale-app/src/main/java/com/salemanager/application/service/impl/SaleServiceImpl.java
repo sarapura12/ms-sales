@@ -58,7 +58,7 @@ public class SaleServiceImpl implements ISaleService {
         try {
             emailService.sendMail(client.getEmail(), "Order Confirmation", variables);
         }catch (Exception e){
-            e.printStackTrace();
+            System.out.println("Failed to send email: " + e.getMessage());
         }
         return newSale;
     }
